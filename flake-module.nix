@@ -69,13 +69,44 @@
                 touch $out
               '';
         };
+
+        flake.app = {
+          enable = lib.mkEnableOption "makeCspellConfig application";
+
+          program = lib.mkOption {
+            description = "The makeCspellConfig program.";
+            type = lib.types.package;
+            default = pkgs.writeShellApplication {
+              name = "make-cspell-config";
+              text =
+                let
+                  inherit (config') configFile;
+                in
+                ''
+                  cp -f ${configFile} "''${1:-cspell.json}"
+                '';
+            };
+          };
+        };
       };
       config =
         let
-          inherit (config') check projectRoot settings;
+          inherit (config')
+            check
+            projectRoot
+            settings
+            flake
+            ;
         in
         {
           checks.cspell = check projectRoot;
+          apps = lib.mkIf flake.app.enable {
+            makeCspellConfig = {
+              meta.description = "Generate a cspell configuration file.";
+              type = "app";
+              program = "${flake.app.program}/bin/${flake.app.program.name}";
+            };
+          };
           cspell.configFile = lib.mkDefault (jsonFormat.generate "cspell.json" settings);
         };
     }

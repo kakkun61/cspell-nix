@@ -34,38 +34,27 @@
           ...
         }:
         {
-          apps.makeCspellConfig = {
-            meta.description = "Generate a cspell configuration file.";
-            type = "app";
-            program =
-              let
-                app = pkgs.writeShellApplication {
-                  name = "make-cspell-config";
-                  text = ''
-                    cp -f ${config.cspell.configFile} "''${1:-cspell.json}"
-                  '';
-                };
-              in
-              "${app}/bin/make-cspell-config";
-          };
           treefmt = {
             programs = {
               nixfmt.enable = true;
               yamlfmt.enable = true;
             };
           };
-          cspell.settings.words = [
-            "cachix"
-            "coreutils"
-            "kakkun"
-            "nixfmt"
-            "nixos"
-            "nixpkgs"
-            "numtide"
-            "pkgs"
-            "treefmt"
-            "xlink"
-          ];
+          cspell = {
+            settings.words = [
+              "cachix"
+              "coreutils"
+              "kakkun"
+              "nixfmt"
+              "nixos"
+              "nixpkgs"
+              "numtide"
+              "pkgs"
+              "treefmt"
+              "xlink"
+            ];
+            flake.app.enable = true;
+          };
         };
       flake = {
         inherit flakeModule;
