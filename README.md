@@ -1,6 +1,6 @@
 # cspell-nix
 
-A Nix Flake module for [cspell](https://cspell.org/).
+A [Nix Flake module](https://flake.parts/) for [cspell](https://cspell.org/).
 
 To introduce cspell to your flake project:
 
@@ -11,38 +11,43 @@ To introduce cspell to your flake project:
 
 ## Add cspell-nix as a flake input
 
-```nix
-{
-  inputs.cspell-nix.url = "github:kakkun61/cspell-nix";
-}
+```diff
+  {
++   inputs.cspell-nix.url = "github:kakkun61/cspell-nix";
+    …
+  }
 ```
 
 ## Add this module to imports
 
-```nix
-{
-  …
-  outputs = inputs@{ flake-parts, cspell-nix, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ cspell-nix.flakeModule ];
-  };
-}
+```diff
+  {
+    …
+    outputs = inputs@{ flake-parts, cspell-nix, ... }:
+      flake-parts.lib.mkFlake { inherit inputs; } {
++       imports = [ cspell-nix.flakeModule ];
+        …
+      };
+  }
 ```
 
 ## Write your configuration under `cspell.settings`
 
-```nix
-{
-  …
-  outputs = inputs@{ flake-parts, cspell-nix, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      …
-      perSystem = { ... }: {
-        cspell.settings.words = [ "nixpkgs" "kakkun" ];
-      };
-  };
-}
+```diff
+  {
+    …
+    outputs = inputs@{ flake-parts, cspell-nix, ... }:
+      flake-parts.lib.mkFlake { inherit inputs; } {
+        …
+        perSystem = { ... }: {
+          …
++         cspell.settings.words = [ "nixpkgs" "kakkun" ];
+        };
+    };
+  }
 ```
+
+For details under `cspell.settings`, see [cspell documentation](https://cspell.org/docs/Configuration#cspelljson-sections).
 
 ## Run `nix flake check`
 
