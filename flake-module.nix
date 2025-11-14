@@ -1,26 +1,15 @@
 {
   self,
-  inputs,
-  lib,
   flake-parts-lib,
-  specialArgs,
-  moduleLocation,
-  config,
-  options,
-  _class,
-  _prefix,
+  ...
 }:
 {
   options.perSystem = flake-parts-lib.mkPerSystemOption (
     {
-      system,
       lib,
-      specialArgs,
       config,
-      options,
-      _class,
-      _prefix,
       pkgs,
+      ...
     }:
     let
       config' = config.cspell;
