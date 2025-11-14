@@ -49,6 +49,22 @@ To introduce cspell to your flake project:
 
 For details under `cspell.settings`, see [cspell documentation](https://cspell.org/docs/Configuration#cspelljson-sections).
 
+Or you can specify a configuration file if you already have one:
+
+```diff
+  {
+    …
+    outputs = inputs@{ flake-parts, cspell-nix, ... }:
+      flake-parts.lib.mkFlake { inherit inputs; } {
+        …
+        perSystem = { ... }: {
+          …
++         cspell.configFile = ./cspell.json;
+        };
+    };
+  }
+```
+
 ## Run `nix flake check`
 
 ```console
