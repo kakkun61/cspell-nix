@@ -20,11 +20,14 @@
     let
       perSystemModule = import ./flake-module.nix { inherit self; };
       flakeModule = {
+        _class = "flake";
         options.perSystem = flake-parts.lib.mkPerSystemOption perSystemModule;
       };
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
+        flake-parts.flakeModules.flakeModules
+        flake-parts.flakeModules.modules
         treefmt-nix.flakeModule
         flakeModule
       ];
@@ -66,6 +69,7 @@
         };
       flake = {
         inherit flakeModule;
+        modules.flake.default = flakeModule;
       };
     };
 }
