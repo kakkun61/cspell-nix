@@ -20,6 +20,29 @@ package
 
 
 
+## perSystem\.\<system>\.cspell\.packages\.cspell-json\.enable
+
+
+
+Whether to enable ` packages.<system>.cspell-json `\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+
+
+*Example:*
+` true `
+
+
+
 ## perSystem\.\<system>\.cspell\.check
 
 The flake check script\.
@@ -46,47 +69,6 @@ The path to the cspell configuration file\.
 
 *Type:*
 absolute path
-
-
-
-## perSystem\.\<system>\.cspell\.flake\.app\.enable
-
-
-
-Whether to enable ` apps.<system>.makeCspellConfig `\.
-
-
-
-*Type:*
-boolean
-
-
-
-*Default:*
-` false `
-
-
-
-*Example:*
-` true `
-
-
-
-## perSystem\.\<system>\.cspell\.flake\.app\.program
-
-
-
-The ` apps.<system>.makeCspellConfig ` program\.
-
-
-
-*Type:*
-package
-
-
-
-*Default:*
-` <derivation make-cspell-config> `
 
 
 

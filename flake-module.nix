@@ -56,24 +56,7 @@ in
           '';
     };
 
-    flake.app = {
-      enable = lib.mkEnableOption "`apps.<system>.makeCspellConfig`";
-
-      program = lib.mkOption {
-        description = "The `apps.<system>.makeCspellConfig` program.";
-        type = lib.types.package;
-        default = pkgs.writeShellApplication {
-          name = "make-cspell-config";
-          text =
-            let
-              inherit (config') configFile;
-            in
-            ''
-              cp -f ${configFile} "''${1:-cspell.json}"
-            '';
-        };
-      };
-    };
+    packages.cspell-json.enable = lib.mkEnableOption "`packages.<system>.cspell-json`";
   };
 
   config =
@@ -82,17 +65,14 @@ in
         check
         projectRoot
         settings
-        flake
+        packages
+        configFile
         ;
     in
     {
       checks.cspell = check projectRoot;
-      apps = lib.mkIf flake.app.enable {
-        makeCspellConfig = {
-          meta.description = "Generate a cspell configuration file.";
-          type = "app";
-          program = "${flake.app.program}/bin/${flake.app.program.name}";
-        };
+      packages = lib.mkIf packages.cspell-json.enable {
+        cspell-json = configFile;
       };
       cspell.configFile = lib.mkDefault (jsonFormat.generate "cspell.json" settings);
     };

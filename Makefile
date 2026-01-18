@@ -3,4 +3,4 @@ doc/options.md: dev/make-options-doc flake.nix flake-module.nix
 	./dev/make-options-doc > $@
 
 cspell.json: flake.nix flake-module.nix
-	nix run .#makeCspellConfig
+	nix build .#cspell-json --out-link $@

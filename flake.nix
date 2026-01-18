@@ -64,7 +64,7 @@
               "treefmt"
               "xlink"
             ];
-            flake.app.enable = true;
+            packages.cspell-json.enable = true;
           };
         };
       flake = {

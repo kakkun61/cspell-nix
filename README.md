@@ -71,6 +71,14 @@ Or you can specify a configuration file if you already have one:
 $ nix flake check
 ```
 
+You can generate the _cspell.json_ file from Nix config by running:
+
+```console
+$ nix build .#cspell-json --out-link cspell.json
+```
+
+## An example
+
 This project's _flake.nix_ is a live example of using this module.
 
 ## Flake module options
