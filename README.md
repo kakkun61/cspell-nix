@@ -72,3 +72,7 @@ $ nix flake check
 ```
 
 This project's _flake.nix_ is a live example of using this module.
+
+## Flake module options
+
+See [doc/options.md](doc/options.md) for the list of available options.
