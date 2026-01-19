@@ -31,7 +31,11 @@
         treefmt-nix.flakeModule
         flakeModule
       ];
-      systems = nixpkgs.lib.systems.flakeExposed;
+      systems =
+        let
+          inherit (nixpkgs) lib;
+        in
+        builtins.filter (s: lib.hasSuffix "linux" s || lib.hasSuffix "darwin" s) lib.systems.flakeExposed;
       perSystem =
         {
           pkgs,
