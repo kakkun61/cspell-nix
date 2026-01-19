@@ -1,6 +1,8 @@
 # cspell-nix change log
 
-## Unreleased
+## v2.0.0
+
+*2026-01-19*
 
 Changes:
 
