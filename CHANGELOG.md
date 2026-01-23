@@ -1,5 +1,13 @@
 # cspell-nix change log
 
+## v2.0.1
+
+*2026-01-23*
+
+Changes:
+
+- Change the license from GPL-3.0-only to Apache-2.0.
+
 ## v2.0.0
 
 *2026-01-19*
