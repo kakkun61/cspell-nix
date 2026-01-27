@@ -18,11 +18,15 @@
       treefmt-nix,
     }:
     let
-      perSystemModule = import ./flake-module.nix { inherit self; };
-      flakeModule = {
-        _class = "flake";
-        options.perSystem = flake-parts.lib.mkPerSystemOption perSystemModule;
-      };
+      mkPerSystemModule = import ./flake-module.nix;
+      flakeModule =
+        { self, ... }:
+        {
+          _class = "flake";
+          options.perSystem = flake-parts.lib.mkPerSystemOption (mkPerSystemModule {
+            inherit self;
+          });
+        };
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
@@ -45,7 +49,9 @@
           ...
         }:
         {
-          packages.optionsDoc = pkgs.callPackage ./options-doc.nix { inherit perSystemModule; };
+          packages.optionsDoc = pkgs.callPackage ./options-doc.nix {
+            perSystemModule = mkPerSystemModule { self = null; };
+          };
           treefmt = {
             programs = {
               nixfmt.enable = true;

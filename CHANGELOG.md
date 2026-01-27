@@ -1,5 +1,11 @@
 # cspell-nix change log
 
+## Unreleased
+
+Fixes:
+
+- `projectRoot` option's default value has been cspell-nix's root directory instead of the user's project root directory. Now it correctly defaults to the user's project root directory.
+
 ## v2.0.1
 
 *2026-01-23*
